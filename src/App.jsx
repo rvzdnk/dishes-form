@@ -1,13 +1,21 @@
 
-import './App.css'
+import './App.styled.js'
 import Form from "./components/Form/Form";
+import foodbg from "./assets/foodbg.mp4";
+import { Video, Content, Container } from './App.styled.js';
+
 
 function App() {
 
   return (
-    <>
-     <Form/>
-    </>
+    <Container>
+      <Video autoPlay loop muted>
+        <source src={foodbg} type='video/mp4' />
+      </Video>
+      <Content>
+        <Form/>
+      </Content>
+    </Container>
   )
 }
 

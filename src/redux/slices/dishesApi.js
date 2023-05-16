@@ -14,4 +14,4 @@ export const dishesApi = createApi({
   }),
 })
 
-export const { useAddNewDish } = dishesApi;
+export const { useAddNewDishMutation } = dishesApi;
