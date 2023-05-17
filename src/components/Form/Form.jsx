@@ -157,6 +157,7 @@ export const Form = () => {
                     fullWidth
                     margin="dense"
                     align="center"
+                    required
                     >
                         <Typography gutterBottom>
                             Spiciness level: {values.spiciness_scale}
@@ -164,8 +165,6 @@ export const Form = () => {
                         <Slider
                             id="spiciness_scale"
                             name="spiciness_scale"
-                            required
-                            defaultValue={1}
                             aria-valuetext="Spiciness scale"
                             value={Number(values.spiciness_scale) || Number()}
                             onChange={handleChange}
