@@ -7,7 +7,7 @@ import { TextField, Select, MenuItem, FormControl, InputLabel, InputAdornment, O
 import SendIcon from '@mui/icons-material/Send';
 import { Wrapper, DishForm} from  "./Form.styled";
 import { TextMaskCustom } from "../../utils/TextMaskCustom";
-import { DISH_TYPES } from "../../constants/disg-types";
+import { DISH_TYPES } from "../../constants/dish-types";
 
 
 export const Form = () => {
