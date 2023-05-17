@@ -3,16 +3,15 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { formValidation } from "../../schemas/formValidation";
 import { useAddNewDishMutation } from "../../redux/slices/dishesApi";
-import { TextField, Select, MenuItem, FormControl, InputLabel, InputAdornment, OutlinedInput, Slider, Typography, Button } from '@mui/material';
+import { TextField, Select, MenuItem, FormControl, InputLabel, InputAdornment, OutlinedInput, Slider, Typography, Button, FormHelperText } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { Wrapper, DishForm} from  "./Form.styled";
-import { PatternFormat } from 'react-number-format';
-
+import { TextMaskCustom } from "../../utils/TextMaskCustom";
+import { DISH_TYPES } from "../../constants/disg-types";
 
 
 export const Form = () => {
 
-    const dishType = ["pizza", "soup", "sandwich"]
     const [addNewDish] = useAddNewDishMutation();
 
     const { handleSubmit, values, handleChange, resetForm, errors, touched } =
@@ -53,9 +52,9 @@ export const Form = () => {
                     value={values.name}
                     onChange={handleChange}
                     error={touched.name && Boolean(errors.name)}
+                    helperText={touched.name && errors.name}
                 />
-                <PatternFormat
-                    customInput={TextField}
+                <TextField
                     fullWidth
                     required
                     placeholder="00:00:00"
@@ -66,8 +65,11 @@ export const Form = () => {
                     label="Preparation Time"
                     value={values.preparation_time}
                     onChange={handleChange}
-                    format="##:##:##"
                     error={touched.preparation_time && Boolean(errors.preparation_time)}
+                    helperText={touched.preparation_time && errors.preparation_time}
+                    InputProps={{
+                        inputComponent: TextMaskCustom,
+                      }}
                     />
                 <FormControl
                     fullWidth
@@ -86,16 +88,18 @@ export const Form = () => {
                         value={values.type}
                         onChange={handleChange}
                         error={touched.type && Boolean(errors.type)}
+                        aria-describedby="helper-type"
                         >
-                        {dishType.map((type) => (
+                        {DISH_TYPES.map((value, label) => (
                             <MenuItem
-                                key={type}
-                                value={type}
+                                key={value}
+                                value={value}
                             >
-                                {type.charAt(0).toUpperCase() + type.slice(1)}
+                                {label}
                             </MenuItem>
                         ))}
                     </Select>
+                    <FormHelperText id="helper-type">{touched.type && errors.type}</FormHelperText>
                 </FormControl>
                 {values.type === "pizza" &&
                     <>
@@ -111,6 +115,7 @@ export const Form = () => {
                             value={values.no_of_slices || ""}
                             onChange={handleChange}
                             error={touched.no_of_slices && Boolean(errors.no_of_slices)}
+                            helperText={touched.no_of_slices && errors.no_of_slices}
                             type="number"
                             inputProps={{
                                 min: 1,
@@ -134,6 +139,7 @@ export const Form = () => {
                                 value={values.diameter || ""}
                                 onChange={handleChange}
                                 error={touched.diameter && Boolean(errors.diameter)}
+                                aria-describedby="helper-diameter"
                                 type="number"
                                 endAdornment={<InputAdornment position="end">cm</InputAdornment>}
                                 inputProps={{
@@ -142,11 +148,16 @@ export const Form = () => {
                                     max: 50,
                                     }}
                             />
+                            <FormHelperText id="helper-diameter">{touched.diameter && errors.diameter}</FormHelperText>
                         </FormControl>
                     </>
                 }
                 {values.type === "soup" &&
-                    <FormControl fullWidth margin="dense" align="center">
+                    <FormControl
+                    fullWidth
+                    margin="dense"
+                    align="center"
+                    >
                         <Typography gutterBottom>
                             Spiciness level: {values.spiciness_scale}
                         </Typography>
@@ -159,12 +170,14 @@ export const Form = () => {
                             value={Number(values.spiciness_scale) || Number()}
                             onChange={handleChange}
                             error={touched.spiciness_scale && Boolean(errors.spiciness_scale)}
+                            aria-describedby="helper-spiciness_scale"
                             valueLabelDisplay="auto"
                             step={1}
                             marks
                             min={1}
                             max={10}
                         />
+                          <FormHelperText id="helper-spiciness_scale">{touched.spiciness_scale && errors.spiciness_scale}</FormHelperText>
                     </FormControl>
                 }
                  {values.type === "sandwich" &&
@@ -179,7 +192,8 @@ export const Form = () => {
                             label="Slices of bread"
                             value={values.slices_of_bread || ""}
                             onChange={handleChange}
-                            error={touched.slices_of_bread && Boolean(errors.slices_of_bread)}
+                            error={touched.slices_of_bread && errors.slices_of_bread}
+                            helperText={touched.slices_of_bread && errors.slices_of_bread}
                             type="number"
                             inputProps={{
                                 min: 1,
