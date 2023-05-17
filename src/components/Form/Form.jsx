@@ -90,7 +90,7 @@ export const Form = () => {
                         error={touched.type && Boolean(errors.type)}
                         aria-describedby="helper-type"
                         >
-                        {DISH_TYPES.map((value, label) => (
+                        {DISH_TYPES.map(({value, label}) => (
                             <MenuItem
                                 key={value}
                                 value={value}
