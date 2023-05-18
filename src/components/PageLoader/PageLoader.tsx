@@ -4,12 +4,17 @@ import { Rings } from  'react-loader-spinner';
 const PageLoader = () => {
     return(
             <Rings
-                height="80"
-                width="80"
-                color="#4fa94d"
+                height="100"
+                width="100"
+                color="#448AFF"
                 radius="6"
-                wrapperStyle={{}}
-                wrapperClass=""
+                wrapperStyle={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: "100px",
+                    height: "100px",
+                }}
                 visible={true}
                 ariaLabel="rings-loading"
             />
