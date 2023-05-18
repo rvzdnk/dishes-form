@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { formSchema } from "../../schemas/formValidation";
+import { formSchema } from "../../schemas/formSchema";
 import { useAddNewDishMutation } from "../../redux/slices/dishesApi";
 import { TextField, Select, MenuItem, FormControl, InputLabel, InputAdornment, OutlinedInput, Slider, Typography, Button, FormHelperText } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
@@ -112,7 +112,7 @@ export const Form:React.FC = () => {
                             id="no_of_slices"
                             name="no_of_slices"
                             label="Number of slices"
-                            value={values.no_of_slices}
+                            value={values.no_of_slices || ""}
                             onChange={handleChange}
                             error={touched.no_of_slices && Boolean(errors.no_of_slices)}
                             helperText={touched.no_of_slices && errors.no_of_slices}
@@ -136,7 +136,7 @@ export const Form:React.FC = () => {
                                 id="diameter"
                                 name="diameter"
                                 label="Diameter"
-                                value={values.diameter}
+                                value={values.diameter || ""}
                                 onChange={handleChange}
                                 error={touched.diameter && Boolean(errors.diameter)}
                                 aria-describedby="helper-diameter"
@@ -165,7 +165,7 @@ export const Form:React.FC = () => {
                             id="spiciness_scale"
                             name="spiciness_scale"
                             aria-valuetext="Spiciness scale"
-                            value={Number(values.spiciness_scale)}
+                            value={values.spiciness_scale || 5}
                             onChange={handleChange}
                             aria-describedby="helper-spiciness_scale"
                             valueLabelDisplay="on"
@@ -191,7 +191,7 @@ export const Form:React.FC = () => {
                             id="slices_of_bread"
                             name="slices_of_bread"
                             label="Slices of bread"
-                            value={values.slices_of_bread}
+                            value={values.slices_of_bread||""}
                             onChange={handleChange}
                             error={touched.slices_of_bread && Boolean(errors.slices_of_bread)}
                             helperText={touched.slices_of_bread && errors.slices_of_bread}
