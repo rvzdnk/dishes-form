@@ -1,27 +1,29 @@
 import React from "react";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { formValidation } from "../../schemas/formValidation";
+import { formSchema } from "../../schemas/formValidation";
 import { useAddNewDishMutation } from "../../redux/slices/dishesApi";
 import { TextField, Select, MenuItem, FormControl, InputLabel, InputAdornment, OutlinedInput, Slider, Typography, Button, FormHelperText } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { Wrapper, DishForm} from  "./Form.styled";
-import { TextMaskCustom } from "../../utils/TextMaskCustom";
-import { DISH_TYPES } from "../../constants/dish-types";
+import { DISH_TYPES } from "../../constants/dishTypes";
+import { FormValues } from "../../interfaces/formValues";
+import { PatternFormat } from 'react-number-format';
 
+const initialValues : FormValues = {
+    name: "",
+    preparation_time: "",
+    type: "",
+}
 
-export const Form = () => {
+export const Form:React.FC = () => {
 
     const [addNewDish] = useAddNewDishMutation();
 
     const { handleSubmit, values, handleChange, resetForm, errors, touched } =
         useFormik({
-        initialValues: {
-            name: "",
-            preparation_time: "",
-            type: "",
-        },
-        validationSchema:formValidation,
+        initialValues: initialValues,
+        validationSchema: formSchema,
         onSubmit:
         async (values) => {
             await addNewDish(values)
@@ -34,7 +36,6 @@ export const Form = () => {
                     toast.warn(error && `Please make sure all fields are filled in correctly.`);
                 });
             },
-        enableReinitialze: true,
         });
 
  return (
@@ -54,10 +55,12 @@ export const Form = () => {
                     error={touched.name && Boolean(errors.name)}
                     helperText={touched.name && errors.name}
                 />
-                <TextField
+                <PatternFormat
+                    customInput={TextField}
                     fullWidth
                     required
                     placeholder="00:00:00"
+                    format="##:##:##"
                     variant="outlined"
                     margin="dense"
                     id="preparation_time"
@@ -67,9 +70,6 @@ export const Form = () => {
                     onChange={handleChange}
                     error={touched.preparation_time && Boolean(errors.preparation_time)}
                     helperText={touched.preparation_time && errors.preparation_time}
-                    InputProps={{
-                        inputComponent: TextMaskCustom,
-                      }}
                     />
                 <FormControl
                     fullWidth
@@ -112,7 +112,7 @@ export const Form = () => {
                             id="no_of_slices"
                             name="no_of_slices"
                             label="Number of slices"
-                            value={values.no_of_slices || ""}
+                            value={values.no_of_slices}
                             onChange={handleChange}
                             error={touched.no_of_slices && Boolean(errors.no_of_slices)}
                             helperText={touched.no_of_slices && errors.no_of_slices}
@@ -126,17 +126,17 @@ export const Form = () => {
                             fullWidth
                             margin="dense"
                             required
+                            variant="outlined"
                         >
                             <InputLabel htmlFor="diameter">
                                 Diameter
                             </InputLabel>
                             <OutlinedInput
                                 placeholder="Diameter"
-                                variant="outlined"
                                 id="diameter"
                                 name="diameter"
                                 label="Diameter"
-                                value={values.diameter || ""}
+                                value={values.diameter}
                                 onChange={handleChange}
                                 error={touched.diameter && Boolean(errors.diameter)}
                                 aria-describedby="helper-diameter"
@@ -154,29 +154,31 @@ export const Form = () => {
                 }
                 {values.type === "soup" &&
                     <FormControl
-                    fullWidth
-                    margin="dense"
-                    align="center"
-                    required
+                        margin="dense"
+                        required
+                        error={touched.spiciness_scale && Boolean(errors.spiciness_scale)}
                     >
-                        <Typography gutterBottom>
+                        <Typography gutterBottom align="center">
                             Spiciness level: {values.spiciness_scale}
                         </Typography>
                         <Slider
                             id="spiciness_scale"
                             name="spiciness_scale"
                             aria-valuetext="Spiciness scale"
-                            value={Number(values.spiciness_scale) || Number()}
+                            value={Number(values.spiciness_scale)}
                             onChange={handleChange}
-                            error={touched.spiciness_scale && Boolean(errors.spiciness_scale)}
                             aria-describedby="helper-spiciness_scale"
-                            valueLabelDisplay="auto"
+                            valueLabelDisplay="on"
                             step={1}
                             marks
                             min={1}
                             max={10}
                         />
-                          <FormHelperText id="helper-spiciness_scale">{touched.spiciness_scale && errors.spiciness_scale}</FormHelperText>
+                        <FormHelperText 
+                            id="helper-spiciness_scale"
+                            error={touched.spiciness_scale && Boolean(errors.spiciness_scale)}>
+                                {touched.spiciness_scale && errors.spiciness_scale}
+                        </FormHelperText>
                     </FormControl>
                 }
                  {values.type === "sandwich" &&
@@ -189,9 +191,9 @@ export const Form = () => {
                             id="slices_of_bread"
                             name="slices_of_bread"
                             label="Slices of bread"
-                            value={values.slices_of_bread || ""}
+                            value={values.slices_of_bread}
                             onChange={handleChange}
-                            error={touched.slices_of_bread && errors.slices_of_bread}
+                            error={touched.slices_of_bread && Boolean(errors.slices_of_bread)}
                             helperText={touched.slices_of_bread && errors.slices_of_bread}
                             type="number"
                             inputProps={{

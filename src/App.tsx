@@ -1,12 +1,13 @@
-
-import './App.styled.js'
+import React from 'react';
+import './App.styled'
 import Form from "./components/Form/Form";
-import foodbg from "./assets/foodbg.mp4";
-import { Video, Content, Container } from './App.styled.js';
+import { ToastContainer } from 'react-toastify';
+import foodbg from './assets/foodbg.mp4';
+import { Video, Content, Container } from './App.styled';
 import "react-toastify/dist/ReactToastify.min.css";
 
 
-function App() {
+const App:React.FC = () => {
 
   return (
     <Container>
@@ -16,6 +17,7 @@ function App() {
       <Content>
         <Form/>
       </Content>
+      <ToastContainer />
     </Container>
   )
 }

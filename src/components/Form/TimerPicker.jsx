@@ -1,8 +1,0 @@
-const TimerPicker = () => {
-
-
-    return(
-        <>
-        </>
-    )
-}
