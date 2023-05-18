@@ -1,5 +1,5 @@
 import React from 'react';
-// import foodbg from './assets/foodbg.mp4';
+import foodbg from './assets/foodbg.mp4';
 import Form from "./components/Form/Form";
 import { ToastContainer } from 'react-toastify';
 import { Video, Content, Container } from './App.styled';
@@ -12,7 +12,7 @@ const App:React.FC = () => {
   return (
       <Container>
         <Video autoPlay loop muted>
-          {/* <source src={foodbg} type='video/mp4' /> */}
+          <source src={foodbg} type='video/mp4' />
         </Video>
         <Content>
           <Form/>
