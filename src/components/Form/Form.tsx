@@ -39,7 +39,12 @@ export const Form:React.FC = () => {
         });
 
  return (
-    <Wrapper>
+    <Wrapper
+        whileHover={{scale: 1.2}}
+        initial={{opacity:0}}
+        animate={{opacity:1}}
+        transition={{delay:.5}}
+    >
         <DishForm onSubmit={handleSubmit}>
                 <TextField
                     fullWidth
