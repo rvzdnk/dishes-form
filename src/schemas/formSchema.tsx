@@ -25,7 +25,7 @@ export let formSchema: ObjectSchema<FormValues> = object({
     no_of_slices:
         number()
         .when('type', {
-            is: (type) => type==="pizza",
+            is: (type : string) => type==="pizza",
             then: (no_of_slices) => no_of_slices
                 .required('Number of slices is required')
                 .moreThan(0, "Number of slices must be higher than 0")
@@ -34,7 +34,7 @@ export let formSchema: ObjectSchema<FormValues> = object({
     diameter:
         number()
         .when('type', {
-            is: (type) => type==="pizza",
+            is: (type : string) => type==="pizza",
             then: (diameter) => diameter
                 .required('Diameter is required')
                 .moreThan(19.9, "Diameter must be higher than 20")
@@ -43,7 +43,7 @@ export let formSchema: ObjectSchema<FormValues> = object({
     spiciness_scale:
         number()
         .when('type', {
-            is: (type) => type==="soup",
+            is: (type : string) => type==="soup",
             then: (spiciness_scale) => spiciness_scale
                 .required('Spiciness scale is required')
                 .moreThan(0, "Spiceness scale must be higher than 0")
@@ -52,7 +52,7 @@ export let formSchema: ObjectSchema<FormValues> = object({
     slices_of_bread:
         number()
         .when('type', {
-            is: (type) => type==="sandwich",
+            is: (type : string) => type==="sandwich",
             then: (slices_of_bread) => slices_of_bread
                 .required('Slices of bread is required')
                 .moreThan(0, "Number of slices must be higher than 0")
