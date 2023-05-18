@@ -26,3 +26,6 @@ export const Content = styled.div`
 export const Container = styled.div`
   height: 100%;
 `
+
+export const Background = styled.source`
+`
