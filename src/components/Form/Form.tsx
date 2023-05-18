@@ -4,11 +4,11 @@ import { toast } from "react-toastify";
 import { formSchema } from "../../schemas/formSchema";
 import { useAddNewDishMutation } from "../../redux/slices/dishesApi";
 import { TextField, Select, MenuItem, FormControl, InputLabel, InputAdornment, OutlinedInput, Slider, Typography, Button, FormHelperText } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
 import { Wrapper, DishForm} from  "./Form.styled";
 import { DISH_TYPES } from "../../constants/dishTypes";
 import { FormValues } from "../../interfaces/formValues";
-import { PatternFormat } from 'react-number-format';
+import { PatternFormat } from "react-number-format";
 
 const initialValues : FormValues = {
     name: "",
