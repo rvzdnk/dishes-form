@@ -40,12 +40,17 @@ export const Form:React.FC = () => {
 
  return (
     <Wrapper
-        whileHover={{scale: 1.2}}
+        whileHover={{
+            scale: [1.1],
+            transition: { duration: .5 },
+        }}
+        whileTap={{ scale: 0.9 }}
         initial={{opacity:0}}
         animate={{opacity:1}}
         transition={{delay:.5}}
     >
         <DishForm onSubmit={handleSubmit}>
+            <Typography variant="h5" align="center">Create new dish</Typography>
                 <TextField
                     fullWidth
                     required
